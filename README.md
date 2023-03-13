@@ -14,7 +14,7 @@
 + **Неделя 3**
     - *Лекция:* двойственные коды, проверочные матрицы, синдромное декодирование, коды Хэмминга
     - *Семинар:* порождающие и проверочные матрицы
-    - *Индивидуальное задание 1:* 
+    - *Индивидуальное задание 1 (дедлайн 25.03):* [**часть 1**](https://github.com/kirill-vedenev/cs371-coding-theory/blob/main/week03/Assignment%201%20(part%201).ipynb), [**часть 2**](https://github.com/kirill-vedenev/cs371-coding-theory/blob/main/week03/Assignment%201%20(part%202).ipynb), *[инструкция по установке SageMath](https://doc.sagemath.org/html/en/installation/index.html)*
 
 
 ## Литература
