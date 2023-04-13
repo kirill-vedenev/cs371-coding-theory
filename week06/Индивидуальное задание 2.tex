@@ -1,0 +1,181 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc} 
+\usepackage[russian]{babel}
+
+%\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[urlcolor = blue]{hyperref}
+\usepackage{amsmath,amsthm}
+\usepackage[ruled]{algorithm2e}
+
+
+%\usepackage{fontspec}
+%\usepackage{unicode-math}
+\usepackage{libertinus}
+\usepackage[libertine]{newtxmath}
+\usepackage{dsfont}
+\usepackage{microtype}
+\usepackage{sidenotes}
+%\usepackage{enumerate}
+\usepackage[shortlabels, inline]{enumitem}
+\usepackage{nicefrac}
+\usepackage[small]{titlesec}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+ 
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\newcommand\course{Теория кодирования и криптография}
+\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\NetIDa{}           % <-- NetID of person #1
+%\newcommand\NetIDb{netid12038}           % <-- NetID of person #2 (Comment this line out for problem sets)
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\course} %\NetIDa}
+%\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+%\chead{\textbf{\Large Листок \hwnumber}}
+\rhead{Индивидуальное задание 2}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0,0.6}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+	texcl=true
+}
+\lstset{style=mystyle}
+
+
+\newcommand{\ZZ}{\mathds{Z}}
+\newcommand{\NN}{\mathds{N}}
+\newcommand{\QQ}{\mathds{Q}}
+\newcommand{\FF}{\mathds{F}}
+\newtheorem*{remark}{Замечание}
+
+\begin{document}
+\textbf{Дедлайн: 12 мая}
+
+\begin{enumerate}[\bfseries 1.]
+  \item \emph{(7 баллов)} Пусть $(\alpha_1, \dots, \alpha_n)$ --- набор различных ненулевых элементов конечного поля $\FF_q$ (можно на выбор $q = 1024$ или $q=1031$). Реализуйте
+  \begin{enumerate}[\it (a)]
+    \item алгоритм кодирования сообщений $(m_0, \dots, m_{k-1}) \in \FF_q$ с помощью кода Рида--Соломона $RS_k(\alpha_1, \dots, \alpha_n)$;
+    \item алгоритм генерации и добавления случайной ошибки $\mathbf{e}$ веса $t$ к закодированному сообщению;
+  \end{enumerate}  
+  На свой выбор реализуйте и протестируйте корректность работы любого из декодеров кодов Рида--Соломона \emph{(например, декодер Велча--Берлекэмпа, декодер Шиозаки--Гао, декодер Берлекэмпа--Мэсси)}.
+  
+  Рекомендуется использовать уже готовые реализации арифметики в конечных полях и арифметики многочленов (например, SageMath, SymPy, CoCoA, Wolfram Mathematica)
+
+  \item \emph{(5 баллов)} Реализуйте и протестируйте протокол биометрической криптографии \emph{Fuzzy Vault} на основе кодов Рида--Соломона, а именно функции \textsf{LOCK} и \textsf{UNLOCK}.
+  
+  \item \emph{(5 баллов)} Закодируйте кодом Рида--Маллера $RM(r=2,m=4)$ информационный вектор $\mathbf{m}$, внесите одну ошибку в получившееся кодовое слово, а затем пошагово его декодируйте.
+  \begin{remark}
+    Пусть ваш месяц и день рождения записаны в виде \emph{MMDD} (например, 0326, 26 марта). Тогда
+    информационный вектор $\mathbf{m}$ следует считать равным двоичному представлению этой
+    последовательности (без учёта незначащих нулей). Если в получившейся двоичной последовательности меньше $11$ символов, добавьте необходимое количество нулей в начале слова. Пример: $\text{26 марта} \mapsto 0326 \mapsto 00101000110$.
+  \end{remark}
+
+
+
+  \emph{Бонусные баллы:} 5 баллов первым 10 сдавшим, 3 балла сдавшим до 25 апреля. Также бонусные баллы можно получить за реализацию алгоритмов на компилируемых языках программирования (Rust, C++, C), а также за программную реализацию декодера кодов Рида--Маллера.
+
+  % Пусть Ваш месяц и день рождения записаны в виде MMDD (например, 0326, 26 марта). Тогда
+  % информационный вектор 𝑚 следует считать равным двоичному представлению этой
+  % последовательности
+  % (без
+  % учёта
+  % незначащих
+  % нулей).
+  % Если
+  % в
+  % получившейся
+  % двоичной
+  % последовательности меньше 11 символов, добавьте необходимое количество нулей в начале слова.
+  % Пример. 26 марта = 0326 = 00101000110.
+
+
+
+\end{enumerate}
+
+\begin{algorithm}[h]
+  \caption{Декодер Велча--Берлекэмпа}
+  \KwIn{$(z_1, \dots, z_n)$ --- сообщение, принятое по каналу связи}
+  \begin{enumerate}[1.]
+    \item Пусть $r = \lfloor \frac{n-k}{2} \rfloor$ --- максимальный вес ошибки, которую можно исправить. Найти многочлены 
+    \[ L(x) = \sum_{i=0}^{r} L_i x^i, \quad N(x) = \sum_{i=0}^{r+k-1}N_i x^i,  \]
+    которые удовлетворяющие следующей ОСЛУ
+    \[
+      \begin{cases}
+        N(\alpha_1) = z_1 L(\alpha_1) \\
+        N(\alpha_2) = z_2 L(\alpha_2) \\
+        \dots \\
+        N(\alpha_n) = z_n L(\alpha_n) \\
+      \end{cases}
+    \]
+    \item $m(x) = N(x)/L(x)$ --- исходное сообщение
+  \end{enumerate}
+\end{algorithm}
+\begin{algorithm}[h]
+  \caption{Декодер Шиозаки--Гао}
+  \KwIn{$(z_1, \dots, z_n)$ --- сообщение, принятое по каналу связи}
+  \begin{enumerate}[1.]
+    \item Построить с помощью интерполяции многочлен $T(x)$, $\deg(T) < n$, такой что
+    $T(\alpha_j) = y_j$ для $1 \leq j \leq n$.
+    \item С помощью расширенного алгоритма Евклида для  найти многочлены $L(X)$ и $N(x)$, что
+    \[ 
+      \begin{cases}
+        L(X)T(x) \equiv N(X) \; (\operatorname{mod} W(x)), & \text{где} \; W(x) = \prod_{i=1}^{n} (x - \alpha_i) \\
+        \deg N(x) \leq r+k-1, \\
+        \deg L(x) \to \max
+      \end{cases}
+    \]
+    
+    \item $m(x) = N(x)/L(x)$ --- исходное сообщение
+  \end{enumerate}
+\end{algorithm}
+
+\begin{algorithm}[h]
+  \caption{LOCK}
+  \KwIn{$A = \{\alpha_1, \dots, \alpha_n \} \subset \FF_q^*$ --- образец биометрии, $m(x)$ --- секретный многочлен небольшой степени}
+  $S \gets Dict()$\;
+  \ForEach{$\beta \in \FF_q^*$}{
+    \uIf{$\beta \in A$}{
+      $S[\beta] \gets m(\beta)$\;
+    }\uElse{
+      $S[\beta] \gets rand()$\;
+    }
+  }
+  \Return{S}\;
+\end{algorithm}
+
+\end{document}
