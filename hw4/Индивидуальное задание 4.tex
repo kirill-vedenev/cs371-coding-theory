@@ -1,0 +1,209 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc} 
+\usepackage[russian]{babel}
+
+%\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[urlcolor = blue]{hyperref}
+\usepackage{amsmath,amsthm}
+\usepackage[ruled]{algorithm2e}
+
+
+%\usepackage{fontspec}
+%\usepackage{unicode-math}
+\usepackage{libertinus}
+\usepackage[libertine]{newtxmath}
+\usepackage{dsfont}
+\usepackage{dutchcal}
+\usepackage{microtype}
+\usepackage{sidenotes}
+%\usepackage{enumerate}
+\usepackage[shortlabels, inline]{enumitem}
+\usepackage{nicefrac}
+\usepackage[small]{titlesec}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+ 
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\newcommand\course{Теория кодирования и криптография}
+\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\NetIDa{}           % <-- NetID of person #1
+%\newcommand\NetIDb{netid12038}           % <-- NetID of person #2 (Comment this line out for problem sets)
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\course} %\NetIDa}
+%\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+%\chead{\textbf{\Large Листок \hwnumber}}
+\rhead{Индивидуальное задание 4}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0,0.6}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+	texcl=true
+}
+\lstset{style=mystyle}
+
+
+\newcommand{\ZZ}{\mathds{Z}}
+\newcommand{\NN}{\mathds{N}}
+\newcommand{\QQ}{\mathds{Q}}
+\newcommand{\FF}{\mathds{F}}
+\newcommand{\rref}{rref}
+
+\newtheorem*{remark}{Замечание}
+
+\begin{document}
+\textbf{Дедлайн:} \emph{21 июня}
+
+\subsection*{вариант-1}
+\textit{Кол-во баллов: 12}\\
+Реализуйте атаку на шифр Виженера (см. например \href{https://cloudflare-ipfs.com/ipfs/bafykbzacedx7ntkiv2c3so3tg7bmdvln7kucgup7hho46wmyl3xbclp7x6yty?filename=Alferov.djvu}{[Алфёров]}, c.143, \href{https://www.nku.edu/~christensen/1402%20Friedman%20test%202.pdf}{тест Фридмана}) или же на шифр гаммирования с гаммой, генерируемой линейным конгуэртным генератором псевдослучайных чисел (аффинным генератором).
+
+\subsection*{вариант-2}
+\textit{Кол-во баллов: 7}\\
+Реализуйте CPA-KEM на базе криптосистемы Мак--Элиса \emph{(т.е. криптосистему Мак--Элиса со случайными сообщениями и ошибками)}. В качестве кодов используйте коды Рида--Маллера или коды Рида--Соломона из прошлых индивидуальных заданий.
+
+\subsection*{вариант-3}
+\textit{Кол-во баллов: 9}\\
+Реализуйте CCA-KEM на базе криптосистемы Мак--Элиса \emph{(добавляемая ошибка генерируется псевдослучайно на основе сообщения $m$; при декодировании проверяется, что ошибка сгенерирована верно)}. 
+
+\subsection*{вариант-4}
+\textit{Кол-во баллов: 14}\\
+Реализуйте алгоритм Ли--Брикелля для синдромного декодирования случайных линейных кодов ($H e^T = s$, $wt(e) \leq t$).
+
+\subsection*{вариант-5}
+\textit{Кол-во баллов: 12}\\
+Реализуйте этап восстановления $\alpha = (\alpha_1, \dots, \alpha_n)$ для кода $GRS(\alpha, \beta)$ из атаки Сидельникова--Шестакова.
+
+\subsection*{вариант-6}
+\textit{Кол-во баллов: 12}\\
+Реализуйте алгоритм цифровой подписи LESS \emph{(параметры: $q = 31$, $n = 171$, $k = 91$, $\omega=128$)} и проверьте корректность его работы.
+\begin{itemize}
+  \item \textbf{Генерация ключей}: пусть $G \in \FF_q^{k \times n}$ --- случайная матрица ранга $k$, $S \in \FF_q^{k \times k}$ --- случайная обратимая $(k \times k)$--матрица, $P \in \FF_q^{n \times n}$ --- случайная перестановочная матрица. Тогда $(G, \tilde{G} = S \cdot G \cdot P)$ --- публичный ключ \emph{(ключ проверки подписи)}, $P$ --- секретный ключ \emph{(ключ создания подписи)}.   
+  \item \textbf{Создание подписи:} для подписи сообщения $m$ необходимо сгенерировать $\omega$ обратимых $n\times n$--матриц $Q_i$ и вычислить
+  \[
+    c = Hash\left( \rref(G \cdot Q_1), \dots, \rref(G \cdot Q_{\omega}) \right),
+  \]
+  где $\rref$ --- функция, вычисляющая приведённый ступенчатый вид матрицы \emph{(в SageMath: .rref())}. Далее необходимо вычислить вектор $\mathbf{b} = (b_1, \dots, b_{\omega}) \in \FF_2^{\omega}$:
+  \[ (b_1, \dots, b_{\omega}) = Hash(c, m)  \]
+  и набор матриц 
+  \[
+    R_i = \begin{cases}
+      Q_i, & b_i = 0 \\
+      P^{-1} Q_i, & b_i = 1
+    \end{cases}
+  \]
+  тогда $\left( c, \mathbf{b}, R_1, \dots, R_{\omega} \right)$ --- цифровая подпись сообщения $m$.
+  \item \textbf{Проверка подписи:}
+  \begin{enumerate}
+    \item проверить, что $\mathbf{b} = Hash(c, m)$;
+    \item вычислить матрицы
+    \[ U_i = \begin{cases}
+      G R_i, & b_i = 0 \\
+      \tilde{G} R_i, & b_i = 1
+    \end{cases} \]
+    и проверить равенство $c = Hash(rref(U_1), \dots, rref(U_{\omega}))$.
+  \end{enumerate}
+\end{itemize}
+
+\subsection*{вариант-7}
+\textit{Кол-во баллов: 14}\\
+Реализуйте схему подписи UOV \emph{(параметры $q = 3$, $n = 20$, $k = 10$, $\tau=10$)}.
+
+\begin{itemize}
+  \item \textbf{Генерация ключа.} В первую очередь необходимо сгенирировать разрешимую систему из $k$ однородных квадратичных уравнений от $n$ неизвестных над полем $\FF_q$ следующего вида
+  \[
+    F(x_1, \dots, x_n) = \begin{cases}
+      f^{(1)}(x_1, \dots, x_n), \\
+      \dots \\
+      f^{(k)}(x_1, \dots, x_n). 
+    \end{cases}, \quad
+    f^{(i)}(x_1, \dots, x_n) = \sum_{j = 1}^\tau \sum_{t = j}^\tau f^{(i)}_{j,t} x_j x_t + \sum_{j = 1}^\tau \sum_{t = \tau+1}^n f^{(i)}_{j,t} x_j x_t.
+  \]
+  Нетрудно заметить, что в силу того, что переменные с номерами $\geq \tau+1$ между собой не перемножаются, система $F(x_1, \dots, x_n) = (b_1, \dots, b_m)$ может быть  легко решена (см. создание подписи). Далее, сгенерированную систему необходимо замаскировать под случайную: для этого генерируется случайная обратимая $(n \times n)$--матрица $S$ и в систему $F$ делается подстановка
+  \[ (x_1, \dots, x_n) = (y_1, \dots, y_n) \cdot S \]
+  \emph{(т.е. переменные $x_j$ в системе заменяются какими-то линейными комбинациями новых переменных $y_j$)}. Результирующая система 
+  \[ \tilde{F}(y_1, \dots, y_n) = F\left( (y_1, \dots y_n) \cdot S \right) \]
+  является публичным ключом \emph{(ключом проверки подписи)}.
+  \item \textbf{Создание подписи.} Предположим, что необходимо подписать некоторое сообщение $m$, для этого вычисляется $Hash(m)$ и переводится в $q$-ичную систему счисления:
+  \[ Hash(m) = b_1 q^0 + b_2 q^1 + b_3 q^2 + \dots + b^k q^{k+1} + \dots, \]
+  откуда находится вектор $\overline{b} = (b_1, \dots, b_k) \in \FF_q^k$. Далее необходимо решить систему
+  \[ F(x_1, \dots, x_n) = (b_1, \dots, b_k), \]
+  что можно сделать в 2 шага:
+  \begin{enumerate}
+    \item сгенерировать случайный вектор $(a_1, \dots, a_\tau) \in \FF_q^\tau$ и подставить в предыдущее уравнение вместо первых $\tau$ неизвестных:
+    \[
+      F(a_1, \dots, a_\tau, x_{\tau+1}, \dots, x_n) = 
+      \begin{cases}
+        \underbrace{\sum_{j = 1}^\tau \sum_{t = j}^\tau f^{(1)}_{j,t} a_j a_t }_{\text{константа}}  + \underbrace{\sum_{j = 1}^\tau \sum_{t = \tau+1}^n f^{(1)}_{j,t} a_j x_t}_{\text{линейное уравнение}} \\
+        \dots \\
+        \underbrace{\sum_{j = 1}^\tau \sum_{t = j}^\tau f^{(k)}_{j,t} a_j a_t }_{\text{константа}}  + \underbrace{\sum_{j = 1}^\tau \sum_{t = \tau+1}^n f^{(k)}_{j,t} a_j x_t}_{\text{линейное уравнение}} \\
+      \end{cases} =
+      \begin{pmatrix}
+        b_1 \\ b_2 \\ \dots \\ b_{k-1} \\ b_{k}
+      \end{pmatrix}
+    \]
+    \item решить полученную на прошлом шаге линейную систему. Если система оказалась неразрешимой, то перегенерировать $(a_1, \dots, a_{\tau})$.
+  \end{enumerate}
+  Пусть $(a_1, \dots, a_n)$ --- решение системы $F(x_1, \dots, x_n) = (b_1, \dots, b_k)$, тогда $u = (a_1, \dots, a_n) \cdot S^{-1}$ --- подпись сообщения.
+  \item \textbf{Проверка подписи.} По сообщению $m$ необходимо найти вектор $(b_1, \dots, b_k)$ и проверить, что
+  $\tilde{F}(u) = (b_1, \dots, b_k)$.
+\end{itemize}
+
+
+
+\subsection*{вариант-8}
+\textit{Кол-во баллов: 14 (индивидуально), 10 (в группе до 3 человек)}\\
+Реализуйте протокол рукопожатия из TLS на основе криптосистемы Мак--Элиса и подписи LESS или UOV: 
+\[
+\begin{array}{ccc}
+  Client & & Server \\
+  \tilde{G} = S G P & \xrightarrow{\tilde{G}} & \\
+  &  & m \in_{rnd} \FF_q^k, \; e \in_{rnd} \FF_q^n, \; wt(e) = t \\
+  & \xleftarrow{z, s} & z = m \tilde{G} + e, \; s = sign_{sk_{srv}}(\tilde{G}, z) \\
+  Verify_{pk_{srv}}\left( (\tilde{G}, z), s \right) & & \\
+  m = Dec(z P^{-1}) S^{-1} & & \\
+  e = z - m\tilde{G} & & \\
+
+  & Hash(e)  \text{--- общий ключ} &
+\end{array}
+\]
+Публичный ключ проверки подписи сервера $pk_{srv}$ считается общеизвестным.
+
+
+
+\end{document}
