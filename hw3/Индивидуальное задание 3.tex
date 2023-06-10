@@ -1,0 +1,191 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc} 
+\usepackage[russian]{babel}
+
+%\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[urlcolor = blue]{hyperref}
+\usepackage{amsmath,amsthm}
+\usepackage[ruled]{algorithm2e}
+
+
+%\usepackage{fontspec}
+%\usepackage{unicode-math}
+\usepackage{libertinus}
+\usepackage[libertine]{newtxmath}
+\usepackage{dsfont}
+\usepackage{dutchcal}
+\usepackage{microtype}
+\usepackage{sidenotes}
+%\usepackage{enumerate}
+\usepackage[shortlabels, inline]{enumitem}
+\usepackage{nicefrac}
+\usepackage[small]{titlesec}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+ 
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\newcommand\course{Теория кодирования и криптография}
+\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\NetIDa{}           % <-- NetID of person #1
+%\newcommand\NetIDb{netid12038}           % <-- NetID of person #2 (Comment this line out for problem sets)
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\course} %\NetIDa}
+%\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+%\chead{\textbf{\Large Листок \hwnumber}}
+\rhead{Индивидуальное задание 3}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0,0.6}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+	texcl=true
+}
+\lstset{style=mystyle}
+
+
+\newcommand{\ZZ}{\mathds{Z}}
+\newcommand{\NN}{\mathds{N}}
+\newcommand{\QQ}{\mathds{Q}}
+\newcommand{\FF}{\mathds{F}}
+
+\newtheorem*{remark}{Замечание}
+
+\begin{document}
+Кол-во баллов: 12\\
+Дедлайн 1: 27 мая, дедлайн 2: 3 июня (7 баллов)
+
+\section*{вариант-1}
+\begin{enumerate}[\bfseries 1.]
+  \item Для заданного многочлена $x^n - 1$ над полем $\FF_p$ найти
+  \begin{enumerate}[\it i)]
+    \item количество циклических кодов длины $n$ над полем $\FF_p$;
+    \item порождающие и проверочные многочлены для этих кодов (если кодов больше 6, то только для 6 из них);
+    \item размерность каждого кода из п.2;
+    \item порождающие матрицы любых двух нетривиальных кодов из п. 2;
+    \item записать порождающие матрицы кодов из прошлого пункта в систематическом виде.
+  \end{enumerate}
+  Пусть $v$ --- ваш номер в списке группы. Тогда $n$ и $p$ выбрать из соответствующей строки таблицы:
+  \begin{center}
+    \begin{tabular}{c|ccccccccccc}
+      $v \mod 11$ & 0&1&2&3&4&5&6&7&8&9&10 \\ \hline
+      $n$ & 17&10&13&23&20&14&15&11&11&27&13 \\  \hline
+      $p$ & 2&3&5&2&3&5&2&3&5&2&3  
+    \end{tabular}    
+  \end{center}
+  \item Для любого из кодов из задания 1 построить таблицу Мэггита для ошибок веса $1$ и $2$, состоящих только из единиц и нулей.
+  \item Программно реализовать алгоритм сжатия Хаффмана или арифметическое кодирование для произвольных строк. Сравнить среднее количество битов на символ в сжатой строке со значением энтропии.
+\end{enumerate}
+
+\section*{вариант-2}
+\begin{enumerate}[\bfseries 1.]
+  \item Реализовать функцию, которая принимает на вход число $n$ и проверочный многочлен $h(x) \in \FF_2[x]/(x^n-1)$ и возвращает число ошибок, которое может гарантировано исправить одноитерационная версия декодера \emph{shift-sum}. Напомним, что это число может быть найдено следующим образом:
+  \begin{enumerate}[\it i)]
+    \item пусть $\mathcal{h}(y) = \sum_{i=0}^{n-1} h_i y^i \in \ZZ[y]/(y^n - 1)$ --- целочисленная версия многочлена $h$, пусть
+    \[ \mathcal{h}^*(y) = \mathcal{h}(y^{-1}) = \sum_{i=0}^{n-1} h_{n-i} y^{i}. \]
+    %--- возвратный многочлен для многочлена $\mathcal{h}(y)$. 
+    На первом шаге необходимо вычислить многочлен $u(y) = \mathcal{h}(y) \cdot \mathcal{h}^*(y) \mod y^n - 1$ \emph{(важно: умножение не над полем $\FF_2$, а над $\ZZ$!)}.
+    \item через $\mu(w)$ обозначим сумму $w$ наибольших несвободных \emph{(т.е. стоящих перед ненулевыми степенями $y$)} коэффициентов многочлена $u(y)$. Тогда гарантированная корректирующая способность декодера может быть найдена как наибольшее натуральное число $t$, удовлетворяющее неравенству
+    \[ \mu(t) + \mu(t-1) < \operatorname{wt}(h) \]
+  \end{enumerate}
+  \item При заданных $n$ и $q$ можно определить множество
+  \[ C_{s} = \{ s \cdot q^i \mod n \mid i \in \NN \} \]
+  \emph{(отметим, что начиная с некоторого $i$ последовательность $s q^i \mod n$ зациклится)} называемое циклотомическим классом числа $s$. 
+  Если $q = 2$, то каждому циклотомическому классу можно поставить в соответствие следующий многочлен
+  \[ h_s(x) = \sum_{i \in C_{s}} x^i \]
+  из кольца $\FF_2[x]/(x^n-1)$.
+  
+  Пусть $v$ --- ваш номер в списке группы. Выберите число $n$ из следующей таблицы
+  \begin{center}
+    \begin{tabular}{c|ccccccccccc}
+      $v \mod 8$ & 0&1&2&3&4&5&6&7 \\ \hline
+      $n$ & 73 & 127 & 819 & 255 & 273 & 1023 & 117 & 63
+    \end{tabular}    
+  \end{center}
+  и найдите все циклотомические классы $C_s$ при $q=2$.
+  \begin{lstlisting}[language=Python]
+    # SageMath
+    Zmod(n).cyclotomic_cosets(q=2)  \end{lstlisting}
+  Для каждого $C_s$ найдите многочлен $h_s(x)$ и примените к нему функцию из задания 1.
+\end{enumerate}
+
+
+\section*{вариант-3}
+\begin{enumerate}[\bfseries 1.]
+  \item Программно реализовать итеративную версию декодера \emph{shift-sum}. Напомним, что этот декодер работает следующим образом:
+  \begin{enumerate}[\it i)]
+    \item на вход подаётся проверочный многочлен $h(x) \in \FF_2[x]/(x^n-1)$ и зашумлённое кодовое слово $z(x) = c(x) + e(x)$
+    \item вычисляется синдром $s(x) = z(x) h(x)$. Если $s(x) = 0$, то алгоритм останавливается и возвращает $z(x)$.
+    \item если $s(x) \neq 0$, то строится целочисленная версия многочлена $s(x)$ 
+    \[ \mathcal{s}(y) = \sum_{i=0}^{n-1} s_i y^i \in \ZZ[y]/(y^n-1) \]
+    \emph{(т.е. просто забываем то, что $s(x)$ --- многочлен над конечным полем)}. Затем вычисляется многочлен
+    \[ \phi(y) = \mathcal{s}(y) \cdot \mathcal{h}^*(y), \]
+    где $\mathcal{h^*}(y)$ определён так же как в варианте 2. 
+    \item Коэффициенты многочлена $\phi(y)$ определяют <<надёжность>> каждой координаты \emph{(чем больше $\phi_i$ --- тем выше вероятность того, что в $i$--ой координате ошибка)}. 
+    Поэтому можно попробовать исправить ошибку в $z(x)$ следующим образом:
+    \[ z(x) := z(x) - \sum_{\phi_i = \phi_{max}} x^i, \]
+    где $\phi_{max} = \max_i \{ \phi_i \}$. 
+    
+    После обновления $z(x)$, если не превышено максимальное число итераций, происходит переход обратно к шагу \textit{ii)}.
+  \end{enumerate}
+  \item Протестируйте работу декодера на одном из следующих кодов
+  \[ q=2, \quad n = 21, \quad h(x) = h_7(x) + h_9(x)  \]
+  \[ q=2, \quad n = 255, \quad h(x) = h_1(x) + h_{27}(x)  \]
+  \[ q=2, \quad n = 73, \quad h(x) = h_1(x)  \]
+  \emph{(см. определение $h_s$ в варианте 2)}. В качестве $c(x)$ используйте нулевое кодовое слово, а ошибку генерируйте случайно. При каких весах ошибки вероятность корректного декодирования не меньше $0.9$? 
+  \begin{remark}
+    Вычисление синдрома $s(x)$ может быть реализовано следующим образом:
+    \[ s(x) = z(x) h(x) = \left( \bigoplus_{i=0}^{n-1} z_i x^i \right) \cdot \left( \bigoplus_{i=0}^{n-1} h_i x^i \right) =
+      \bigoplus_{i=0}^{n-1} \left( \bigoplus_{j=0}^{n-1} z_{(i - j) \% n} h_j \right) x^i,
+    \]
+    а вычисление $\phi(y)$ следующим образом:
+    \[ \phi(x) =
+      \sum_{i=0}^{n-1} \left( \sum_{j=0}^{n-1} s_{(i + j) \% n} h_j \right) x^i.
+    \]
+    Можно также использовать готовые реализации факторколец в SageMath.
+    \begin{lstlisting}[language=Python]
+      # SageMath
+      P.<z> = GF(2)[] # кольцо многочленов над полем $\FF_2$
+      R.<x> = P.quo(z^n-1) # кольцо $\FF_2[x]/(x^n-1)$
+      Q.<a> = ZZ[] # целочисленные многочлены
+      K.<y> = Q.quo(a^n-1) # $\ZZ[y]/(y^n-1)$
+    \end{lstlisting}
+  \end{remark}
+  \item Программно реализовать алгоритм сжатия Хаффмана.
+\end{enumerate}
+
+\end{document}
